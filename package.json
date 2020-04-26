@@ -1,6 +1,6 @@
 {
   "name": "cookieless-analytics-consent",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A simple solution to request consent from a user to use analytics for pageviews only (without using cookies).",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -18,7 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/marcobusemann/cookieless-analytics-consent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marcobusemann/cookieless-analytics-consent/issues"
   },
   "keywords": [
     "cookies",

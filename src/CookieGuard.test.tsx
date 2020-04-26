@@ -3,7 +3,6 @@ import { render, fireEvent } from "@testing-library/react";
 
 import CookieGuard from "./CookieGuard";
 import { NoCookies, FakeSingleCookie, FakeCookies, FakeCookie } from "./domain/FakeCookies";
-import { NotABrowserEnvironmentError } from "./infrastructure/BrowserCookies";
 
 const COOKIE_NAME = "a";
 const INNER_DUMMY_ID = "inner-component";

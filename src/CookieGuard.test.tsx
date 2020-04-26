@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 
-import Analytics from "./Analytics";
+import CookieGuard from "./CookieGuard";
 import { NoCookies, FakeSingleCookie, FakeCookies, FakeCookie } from "./domain/FakeCookies";
 import { NotABrowserEnvironmentError } from "./infrastructure/BrowserCookies";
 
@@ -18,12 +18,12 @@ describe("<Analytics />", () => {
         const cookiesData: Record<string, FakeCookie> = {};
 
         render(
-            <Analytics cookies={new FakeCookies(cookiesData)} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={new FakeCookies(cookiesData)} onIncludeAnalytics={jest.fn()}>
                 {(onAccept) => {
                     onAccept();
                     return <></>;
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         expect(Object.keys(cookiesData).length).toBe(1);
@@ -35,9 +35,9 @@ describe("<Analytics />", () => {
         const cookies = new NoCookies();
 
         const { queryByTestId } = render(
-            <Analytics cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
                 {() => <InnerDummy />}
-            </Analytics>
+            </CookieGuard>
         );
 
         const innerComponent = queryByTestId(INNER_DUMMY_ID);
@@ -49,9 +49,9 @@ describe("<Analytics />", () => {
         const cookies = new FakeSingleCookie(COOKIE_NAME, 0);
 
         const { queryByTestId } = render(
-            <Analytics cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
                 {() => <InnerDummy />}
-            </Analytics>
+            </CookieGuard>
         );
 
         const innerComponent = queryByTestId(INNER_DUMMY_ID);
@@ -62,9 +62,9 @@ describe("<Analytics />", () => {
         const cookies = new FakeSingleCookie(COOKIE_NAME, 1);
 
         const { queryByTestId } = render(
-            <Analytics cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
                 {() => <InnerDummy />}
-            </Analytics>
+            </CookieGuard>
         );
 
         const innerComponent = queryByTestId(INNER_DUMMY_ID);
@@ -75,12 +75,12 @@ describe("<Analytics />", () => {
         const cookiesData: Record<string, FakeCookie> = {};
 
         render(
-            <Analytics cookies={new FakeCookies(cookiesData)} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={new FakeCookies(cookiesData)} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
                 {(onAccept) => {
                     onAccept();
                     return (<></>);
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         expect(cookiesData[COOKIE_NAME].value).toBe(1);
@@ -88,12 +88,12 @@ describe("<Analytics />", () => {
 
     test("should hide the consent after accepting", async () => {
         const { queryByTestId } = render(
-            <Analytics cookies={new FakeCookies()} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={new FakeCookies()} onIncludeAnalytics={jest.fn()}>
                 {(onAccept) => {
                     onAccept();
                     return <InnerDummy />;
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         const innerComponent = queryByTestId(INNER_DUMMY_ID);
@@ -104,12 +104,12 @@ describe("<Analytics />", () => {
         const cookiesData: Record<string, FakeCookie> = {};
 
         render(
-            <Analytics cookies={new FakeCookies(cookiesData)} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={new FakeCookies(cookiesData)} cookieName={COOKIE_NAME} onIncludeAnalytics={jest.fn()}>
                 {(_, onReject) => {
                     onReject();
                     return (<></>);
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         expect(cookiesData[COOKIE_NAME].value).toBe(0);
@@ -117,12 +117,12 @@ describe("<Analytics />", () => {
 
     test("should hide the consent after rejecting", async () => {
         const { queryByTestId } = render(
-            <Analytics cookies={new FakeCookies()} onIncludeAnalytics={jest.fn()}>
+            <CookieGuard cookies={new FakeCookies()} onIncludeAnalytics={jest.fn()}>
                 {(_, onReject) => {
                     onReject();
                     return <InnerDummy />;
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         const innerComponent = queryByTestId(INNER_DUMMY_ID);
@@ -134,9 +134,9 @@ describe("<Analytics />", () => {
         const includeAnalytics = jest.fn();
 
         render(
-            <Analytics cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
+            <CookieGuard cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
                 {() => <InnerDummy />}
-            </Analytics>
+            </CookieGuard>
         );
 
         expect(includeAnalytics).toBeCalled();
@@ -147,9 +147,9 @@ describe("<Analytics />", () => {
         const includeAnalytics = jest.fn();
 
         render(
-            <Analytics cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
+            <CookieGuard cookies={cookies} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
                 {() => <InnerDummy />}
-            </Analytics>
+            </CookieGuard>
         );
 
         expect(includeAnalytics).not.toBeCalled();
@@ -159,11 +159,11 @@ describe("<Analytics />", () => {
         const includeAnalytics = jest.fn();
 
         const { findByTestId } = render(
-            <Analytics cookies={new NoCookies()} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
+            <CookieGuard cookies={new NoCookies()} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
                 {(onAccept) => {
                     return <button data-testid={INNER_DUMMY_ID} onClick={onAccept}></button>;
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         const button = await findByTestId(INNER_DUMMY_ID);
@@ -176,11 +176,11 @@ describe("<Analytics />", () => {
         const includeAnalytics = jest.fn();
 
         const { findByTestId } = render(
-            <Analytics cookies={new NoCookies()} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
+            <CookieGuard cookies={new NoCookies()} cookieName={COOKIE_NAME} onIncludeAnalytics={includeAnalytics}>
                 {(_, onReject) => {
                     return <button data-testid={INNER_DUMMY_ID} onClick={onReject}></button>;
                 }}
-            </Analytics>
+            </CookieGuard>
         );
 
         const button = await findByTestId(INNER_DUMMY_ID);
@@ -191,9 +191,9 @@ describe("<Analytics />", () => {
 
     test("should by default use browser cookies", async () => {
         const h = () => render(
-            <Analytics onIncludeAnalytics={jest.fn()}>
+            <CookieGuard onIncludeAnalytics={jest.fn()}>
                 {() => <InnerDummy />}
-            </Analytics>
+            </CookieGuard>
         );
 
         spyOn(console, 'error');

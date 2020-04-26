@@ -1,6 +1,6 @@
 {
   "name": "cookieless-analytics-consent",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A simple solution to request consent from a user to use analytics for pageviews only (without using cookies).",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -8,9 +8,10 @@
     "dist"
   ],
   "scripts": {
+    "prebuild": "node scripts/cleanDist.js",
     "build": "tsc",
-    "postbuild": "node utils/copyCssToDist.js",
-    "prepare": "npm run build",
+    "postbuild": "node scripts/copyCssToDist.js",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch"
@@ -28,19 +29,27 @@
   ],
   "author": "Marco Busemann",
   "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
+  },
   "dependencies": {
     "js-cookie": "^2.2.1",
-    "react": "^16.13.1"
+    "react-ga": "^2.7.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.3",
     "@types/jest": "^25.2.1",
     "@types/js-cookie": "^2.2.6",
+    "@types/node": "^13.13.2",
     "@types/react": "^16.9.34",
     "filehound": "^1.17.4",
     "jest": "^25.4.0",
+    "next": "^9.3.5",
+    "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   }

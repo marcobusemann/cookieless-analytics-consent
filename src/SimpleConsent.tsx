@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Content {
     title: string;
-    text: string;
+    text: React.ReactElement;
     buttonAcceptText: string;
     buttonRejectText: string;
 }
@@ -14,7 +14,7 @@ export default ({
     className,
 }: {
     content: Content;
-    className: any;
+    className?: any;
     onAccept: () => void;
     onReject: () => void;
 }) => {

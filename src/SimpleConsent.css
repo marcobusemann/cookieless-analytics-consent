@@ -58,13 +58,13 @@
     color: white;
 }
 
-.user-consent .bottomRight {
+.user-consent-bottom-right {
     right: 30px;
     bottom: 30px;
 }
 
 @media screen and (max-width: 769px) {
-    .user-consent .bottomRight {
+    .user-consent-bottom-right {
         right: 0px;
         bottom: 0px;
     }

@@ -19,7 +19,7 @@ export default ({
     onReject: () => void;
 }) => {
     return (
-        <div className={`user-consent bottomRight ${className}`}>
+        <div className={`user-consent user-consent-bottom-right ${className}`}>
             <h1>{content.title}</h1>
             <span>
                 {content.text}

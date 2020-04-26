@@ -58,11 +58,6 @@
     color: white;
 }
 
-.user-consent .bottomLeft {
-    left: 10px;
-    bottom: 10px;
-}
-
 .user-consent .bottomRight {
     right: 30px;
     bottom: 30px;

@@ -1,6 +1,6 @@
 {
   "name": "cookieless-analytics-consent",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple solution to request consent from a user to use analytics for pageviews only (without using cookies).",
   "main": "dist/index.js",
   "types": "dist/index.d.js",

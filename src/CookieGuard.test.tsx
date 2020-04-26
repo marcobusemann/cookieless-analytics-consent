@@ -188,15 +188,4 @@ describe("<Analytics />", () => {
 
         expect(includeAnalytics).not.toBeCalled();
     });
-
-    test("should by default use browser cookies", async () => {
-        const h = () => render(
-            <CookieGuard onIncludeAnalytics={jest.fn()}>
-                {() => <InnerDummy />}
-            </CookieGuard>
-        );
-
-        spyOn(console, 'error');
-        expect(h).toThrow(NotABrowserEnvironmentError);
-    });
 });

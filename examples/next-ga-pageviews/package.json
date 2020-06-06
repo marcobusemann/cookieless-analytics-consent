@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cookieless-analytics-consent": "0.0.5",
+    "cookieless-analytics-consent": "0.0.7",
     "next": "^9.3.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
